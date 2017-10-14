@@ -1,7 +1,7 @@
 #### tvheadend-sundtek-docker
 :tv: docker container for tvheadend with sundtek dvb adapter
 
-[![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/tristanteu/tvheadend-sundtek-docker/)
+[![Docker Automated buil](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/clemensvb/tvheadend-sundtek-docker/)
 
 
 
@@ -16,17 +16,16 @@ https://bintray.com/tvheadend/deb/tvheadend/
 
 ### Pull
 ```bash
-docker pull tristanteu/urbackup-docker
+docker pull docker pull clemensvb/tvheadend-sundtek-docker
 ```
 
 ### Run:
 So you propably do not need --link and --device:
 In this example i also pass my DVBSky adapter to tvheadend. It dont passes the sundtek adapter because it is not installed on the host.
-I also link oscam into the container.
+
 ```bash
 docker run \
 --name="tvheadend" \
---link oscam:oscam \
 --restart=always \
 --privileged \
 --net=bridge \
@@ -45,16 +44,14 @@ Don't install sundtek driver on your host.
 
 ### Build
 ```bash
-$ git clone https://github.com/firsttris/tvheadend-sundtek-docker.git
-$ cd tvheadend-sundtek-docker
-$ docker build -t tristanteu/tvheadend-sundtek-docker .
+
+git clone https://github.com/clemensvb/tvheadend-sundtek-docker.git
+cd tvheadend-sundtek-docker
+docker build -t clemensvb/tvheadend-sundtek-docker .
 ```
 
 ### Picons:
 https://github.com/picons/picons-source
-
-## Donate
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KEAR9ZC228YCL)
 
 ## License
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
