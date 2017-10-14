@@ -20,8 +20,7 @@ docker pull docker pull clemensvb/tvheadend-sundtek-docker
 ```
 
 ### Run:
-So you propably do not need --link and --device:
-In this example i also pass my DVBSky adapter to tvheadend. It dont passes the sundtek adapter because it is not installed on the host.
+It dont passes the sundtek adapter because it is not installed on the host.
 
 ```bash
 docker run \
