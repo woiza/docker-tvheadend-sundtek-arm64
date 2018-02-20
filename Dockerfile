@@ -1,22 +1,17 @@
-FROM debian:latest
-MAINTAINER clemensvb <cjvb@gmx.net>
+FROM woiza/docker-baseimage-ubuntu-arm64
+MAINTAINER woiza
 #forked from MAINTAINER firsttris <info@teufel-it.de>
 
-# master, unstable, testing, stable
-ENV tvh_release=unstable
-
-ENV _clean="rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*"
-ENV _apt_clean="eval apt-get clean && $_clean"
-
-ARG DEBIAN_FRONTEND=noninteractive
-
+RUN [ "cross-build-start" ]
 # Install dependencies
 RUN apt-get update -qq \ 
  && apt-get install -qqy apt-transport-https software-properties-common bzip2 libavahi-client3 libav-tools xmltv wget udev gnupg2
 
 # Add key and tvheadend repository
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-RUN apt-add-repository "https://dl.bintray.com/tvheadend/deb ${tvh_release}"
+#RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+#RUN apt-add-repository "https://dl.bintray.com/tvheadend/deb ${tvh_release}"
+
+RUN apt-add-repository ppa:mamarley/tvheadend-git-stable
 
 # Install tvheadend
 RUN apt-get update -qq \ 
@@ -25,7 +20,7 @@ RUN apt-get update -qq \
 # Install Sundtek DVB Driver
 RUN wget http://www.sundtek.de/media/sundtek_netinst.sh \
  && chmod 777 sundtek_netinst.sh \
- && ./sundtek_netinst.sh -easyvdr
+ && ./sundtek_netinst.sh
 
 # Add Basic config
 ADD config /config/
@@ -47,6 +42,8 @@ RUN groupmod -o -g 9981 hts \
 # Launch script
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+RUN [ "cross-build-end" ]
 
 # Default container settings
 VOLUME /config /recordings /picons
