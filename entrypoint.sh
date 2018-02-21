@@ -1,8 +1,8 @@
 #!/bin/bash -x
 
 # Set the uid:gid to run as
-[ "$hts_uid" ] && usermod  -o -u "$hts_uid" hts
-[ "$hts_gid" ] && groupmod -o -g "$hts_gid" hts
+[ "$PUID" ] && usermod  -o -u "$PUID" hts
+[ "$PGID" ] && groupmod -o -g "$PGID" hts
 
 # Start Sundtek
 /opt/bin/mediaclient --start
