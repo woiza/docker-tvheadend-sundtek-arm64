@@ -30,24 +30,12 @@ RUN wget http://www.sundtek.de/media/sundtek_netinst.sh && \
   chmod 777 sundtek_netinst.sh && \
  ./sundtek_netinst.sh -easyvdr
 
-# Add Basic config
-# ADD config /config/
-
-# Timezone
-RUN echo "Europe/Berlin" > /etc/timezone
-
 # Create Locales
-ENV LANG="de_DE.UTF-8"
-RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
- && grep "$LANG" /usr/share/i18n/SUPPORTED >> /etc/locale.gen && locale-gen \
- && update-locale LANG=$LANG
+#ENV LANG="de_DE.UTF-8"
+#RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
+# && grep "$LANG" /usr/share/i18n/SUPPORTED >> /etc/locale.gen && locale-gen \
+# && update-locale LANG=$LANG
 
-RUN groupmod -o -g 9981 hts \
- && usermod -o -u 9981 -a -G video -d /config hts \
- && install -o hts -g hts -d /config /recordings
-
-
-RUN chmod +x /entrypoint.sh
 
 RUN [ "cross-build-end" ]
 
