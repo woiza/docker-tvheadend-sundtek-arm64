@@ -4,18 +4,22 @@ MAINTAINER woiza
 
 RUN [ "cross-build-start" ]
 # Install dependencies
-RUN apt-get update -qq \ 
- && apt-get install -qqy apt-transport-https software-properties-common bzip2 libavahi-client3 libav-tools xmltv wget udev gnupg2
+
+RUN apt-add-repository ppa:mamarley/tvheadend-git-stable
+
+RUN apt-get update -y &&\ 
+  apt-get install -y apt-transport-https software-properties-common bzip2 libavahi-client3 libav-tools xmltv wget udev gnupg2 debconf-utils
 
 # Add key and tvheadend repository
 #RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 #RUN apt-add-repository "https://dl.bintray.com/tvheadend/deb ${tvh_release}"
 
-RUN apt-add-repository ppa:mamarley/tvheadend-git-stable
+RUN echo "tvheadend tvheadend/admin_password password admin" | debconf-set-selections && \
+	echo "tvheadend tvheadend/admin_username admin" | debconf-set-selections
 
 # Install tvheadend
-RUN apt-get update -qq \ 
- && apt-get install -qqy tvheadend
+RUN apt-get update -y &&  \ 
+ apt-get install -y tvheadend
 
 # Install Sundtek DVB Driver
 RUN wget http://www.sundtek.de/media/sundtek_netinst.sh \
@@ -30,7 +34,7 @@ RUN echo "Europe/Berlin" > /etc/timezone
 
 # Create Locales
 ENV LANG="de_DE.UTF-8"
-RUN apt-get update -qqy && apt-get install -qqy locales && $_apt_clean \
+RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
  && grep "$LANG" /usr/share/i18n/SUPPORTED >> /etc/locale.gen && locale-gen \
  && update-locale LANG=$LANG
 
