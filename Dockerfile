@@ -1,4 +1,5 @@
-FROM woiza/docker-baseimage-ubuntu-arm64
+# FROM woiza/docker-baseimage-ubuntu-arm64
+FROM woiza/docker-baseimage-xenial-arm64
 MAINTAINER woiza
 #forked from MAINTAINER firsttris <info@teufel-it.de>
 
