@@ -3,6 +3,8 @@ FROM woiza/docker-baseimage-xenial-arm64
 MAINTAINER woiza
 #forked from MAINTAINER firsttris <info@teufel-it.de>
 
+ENV HOME="/config"
+
 RUN [ "cross-build-start" ]
 # Install dependencies
 
