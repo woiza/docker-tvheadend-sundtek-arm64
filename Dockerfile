@@ -46,8 +46,7 @@ RUN groupmod -o -g 9981 hts \
  && usermod -o -u 9981 -a -G video -d /config hts \
  && install -o hts -g hts -d /config /recordings
 
-# Launch script
-ADD entrypoint.sh /entrypoint.sh
+
 RUN chmod +x /entrypoint.sh
 
 RUN [ "cross-build-end" ]
