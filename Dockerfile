@@ -31,7 +31,7 @@ RUN wget http://www.sundtek.de/media/sundtek_netinst.sh && \
  ./sundtek_netinst.sh -easyvdr
 
 # Add Basic config
-ADD config /config/
+# ADD config /config/
 
 # Timezone
 RUN echo "Europe/Berlin" > /etc/timezone
