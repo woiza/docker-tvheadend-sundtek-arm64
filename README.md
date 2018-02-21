@@ -22,6 +22,7 @@ docker pull docker pull clemensvb/tvheadend-sundtek-docker
 
 ### Run:
 It dont passes the sundtek adapter because it is not installed on the host.
+Webinterface user and password: admin/admin - DONT FORGET TO CHANGE THIS.
 
 ```bash
 docker run \
