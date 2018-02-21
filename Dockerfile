@@ -57,4 +57,3 @@ COPY root/ /
 # Default container settings
 VOLUME /config /recordings /picons
 EXPOSE 9981 9982
-ENTRYPOINT ["/entrypoint.sh"]
