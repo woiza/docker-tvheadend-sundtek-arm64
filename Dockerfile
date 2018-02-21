@@ -25,9 +25,9 @@ RUN apt-get update -y &&  \
  apt-get install -y tvheadend
 
 # Install Sundtek DVB Driver
-RUN wget http://www.sundtek.de/media/sundtek_netinst.sh \
- && chmod 777 sundtek_netinst.sh \
- && ./sundtek_netinst.sh
+RUN wget http://www.sundtek.de/media/sundtek_netinst.sh && \
+  chmod 777 sundtek_netinst.sh && \
+ ./sundtek_netinst.sh -easyvdr
 
 # Add Basic config
 ADD config /config/
@@ -42,9 +42,9 @@ RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
  && update-locale LANG=$LANG
 
 # Configure the hts user account and it's folders
-RUN groupmod -o -g 9981 hts \
- && usermod -o -u 9981 -a -G video -d /config hts \
- && install -o hts -g hts -d /config /recordings
+RUN groupmod -o -g 9981 hts && \
+ usermod -o -u 9981 -a -G video -d /config hts && \
+ install -o hts -g hts -d /config /recordings
 
 # Launch script
 ADD entrypoint.sh /entrypoint.sh
