@@ -24,36 +24,20 @@ docker pull docker pull clemensvb/tvheadend-sundtek-docker
 It dont passes the sundtek adapter because it is not installed on the host.
 Webinterface user and password: admin/admin - DONT FORGET TO CHANGE THIS.
 
-```bash
-docker run \
---name="tvheadend" \
---restart=always \
---net=bridge \
--v /media/8tb.wd.red/recordings/:/recordings \
--v /home/docker/tvheadend/:/config \
--v /home/docker/picons/:/picons \
--e TZ=<timezone> \
--e PUID=<UID> -e PGID=<GID> \
--p 9981:9981 \
--p 9982:9982 \
---device=/dev/dvb/* \
--d woiza/tvheadend-sundtek-docker
-```
-
-```bash
-docker run \
---name="tvheadend" \
---restart=always \
---privileged \
---net=bridge \
--v /media/8tb.wd.red/recordings/:/recordings \
--v /home/docker/tvheadend/:/config \
--v /home/docker/picons/:/picons \
--v /etc/localtime:/etc/localtime:ro \
--p 9981:9981 \
--p 9982:9982 \
---device=/dev/dvb/* \
--d tristanteu/tvheadend-sundtek-docker
+    docker run -d \
+      --name=tvheadend \
+      --net=net-tv \
+      -v tvheadend-data:/config \
+      -v /home/woiza/tvheadend-recordings:/recordings \
+      -v /home/woiza/picons:/picons \
+      -e PGID=1001 -e PUID=1001 \
+      -e TZ=Europe/Berlin \
+      -p 9981:9981 \
+      -p 9982:9982 \
+      --privileged \
+      -v /dev/bus/usb:/dev/bus/usb \
+      --restart always \
+      woiza/tvheadend-sundtek-docker
 ```
 
 ### Important Notice - First Start
