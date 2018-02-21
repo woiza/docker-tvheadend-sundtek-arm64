@@ -19,7 +19,7 @@ RUN apt-get update -y &&\
 RUN apt-add-repository ppa:mamarley/tvheadend-git-stable
 
 RUN echo "tvheadend tvheadend/admin_password password admin" | debconf-set-selections && \
-	echo "tvheadend tvheadend/admin_username admin" | debconf-set-selections
+	echo "tvheadend tvheadend/admin_username string admin" | debconf-set-selections
 
 RUN apt-get update -y &&  \ 
  apt-get install -y tvheadend
