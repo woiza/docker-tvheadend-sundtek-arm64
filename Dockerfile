@@ -42,9 +42,9 @@ RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
  && update-locale LANG=$LANG
 
 # Configure the hts user account and it's folders
-#RUN groupmod -o -g 9981 hts && \
-# usermod -o -u 9981 -a -G video -d /config hts && \
-# install -o hts -g hts -d /config /recordings
+RUN groupmod -o -g "$PGID" hts && \
+ usermod -o -u "$PUID" -a -G video -d /config hts && \
+ install -o hts -g hts -d /config /recordings
 
 # Launch script
 ADD entrypoint.sh /entrypoint.sh
