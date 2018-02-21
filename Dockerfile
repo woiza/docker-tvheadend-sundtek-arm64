@@ -52,6 +52,8 @@ RUN chmod +x /entrypoint.sh
 
 RUN [ "cross-build-end" ]
 
+COPY root/ /
+
 # Default container settings
 VOLUME /config /recordings /picons
 EXPOSE 9981 9982
