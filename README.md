@@ -27,6 +27,22 @@ It dont passes the sundtek adapter because it is not installed on the host.
 docker run \
 --name="tvheadend" \
 --restart=always \
+--net=bridge \
+-v /media/8tb.wd.red/recordings/:/recordings \
+-v /home/docker/tvheadend/:/config \
+-v /home/docker/picons/:/picons \
+-e TZ=<timezone> \
+-e PUID=<UID> -e PGID=<GID> \
+-p 9981:9981 \
+-p 9982:9982 \
+--device=/dev/dvb/* \
+-d woiza/tvheadend-sundtek-docker
+```
+
+```bash
+docker run \
+--name="tvheadend" \
+--restart=always \
 --privileged \
 --net=bridge \
 -v /media/8tb.wd.red/recordings/:/recordings \
