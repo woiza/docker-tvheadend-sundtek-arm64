@@ -26,7 +26,7 @@ RUN apt-get update -y &&\
   xmltv \
   wget \
   gnupg2 \
-  udr \
+  udev \
   debconf-utils &&\ 
 
 # Add key and tvheadend repository
