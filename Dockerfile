@@ -1,9 +1,16 @@
-# FROM woiza/docker-baseimage-ubuntu-arm64
-FROM woiza/docker-baseimage-xenial-arm64
-MAINTAINER woiza
-#forked from MAINTAINER firsttris <info@teufel-it.de>
+FROM lsiobase/xenial.arm64
 
-ENV HOME="/config"
+LABEL maintainer="woiza"
+
+# environment settings
+ARG DEBIAN_FRONTEND="noninteractive"
+
+# adding qemu for crossbuilding on DockerHub
+#COPY --from=resin/aarch64-alpine:latest /usr/bin/qemu* /usr/bin/
+#COPY --from=resin/aarch64-alpine:latest /usr/bin/resin-xbuild* /usr/bin/
+#COPY --from=resin/aarch64-alpine:latest /usr/bin/cross-build* /usr/bin/
+
+COPY --from=resin/aarch64-alpine:latest ["/usr/bin/qemu*", "/usr/bin/resin-xbuild*", "/usr/bin/cross-build*",  "/usr/bin/"]
 
 RUN [ "cross-build-start" ]
 # Install dependencies
