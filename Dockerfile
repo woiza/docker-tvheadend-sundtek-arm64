@@ -37,13 +37,20 @@ RUN apt-get update -y &&  \
 # Install Sundtek DVB Driver
 RUN wget http://www.sundtek.de/media/sundtek_netinst.sh && \
   chmod 777 sundtek_netinst.sh && \
- ./sundtek_netinst.sh -easyvdr
+ ./sundtek_netinst.sh -easyvdr && \
 
 # Create Locales
 #ENV LANG="de_DE.UTF-8"
 #RUN apt-get update -y && apt-get install -y locales && $_apt_clean \
 # && grep "$LANG" /usr/share/i18n/SUPPORTED >> /etc/locale.gen && locale-gen \
 # && update-locale LANG=$LANG
+
+echo "**** cleanup ****" && \
+ apt-get clean && \
+ rm -rf \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 
 RUN [ "cross-build-end" ]
