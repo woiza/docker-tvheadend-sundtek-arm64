@@ -17,7 +17,16 @@ RUN [ "cross-build-start" ]
 
 
 RUN apt-get update -y &&\ 
-  apt-get install -y apt-transport-https software-properties-common bzip2 libavahi-client3 libav-tools xmltv wget udev gnupg2 debconf-utils
+  apt-get install -y \
+  apt-transport-https \
+  software-properties-common \
+  bzip2 \
+  libavahi-client3 \
+  libav-tools \
+  xmltv \
+  wget \
+  gnupg2 \
+  debconf-utils &&\ 
 
 # Add key and tvheadend repository
 #RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
@@ -26,16 +35,16 @@ RUN apt-get update -y &&\
 
 # Install tvheadend
 
-RUN apt-add-repository ppa:mamarley/tvheadend-git-stable
+apt-add-repository ppa:mamarley/tvheadend-git-stable &&\ 
 
-RUN echo "tvheadend tvheadend/admin_password password admin" | debconf-set-selections && \
-	echo "tvheadend tvheadend/admin_username string admin" | debconf-set-selections
+echo "tvheadend tvheadend/admin_password password admin" | debconf-set-selections && \
+	echo "tvheadend tvheadend/admin_username string admin" | debconf-set-selections &&\ 
 
-RUN apt-get update -y &&  \ 
- apt-get install -y tvheadend
+apt-get update -y &&  \ 
+apt-get install -y tvheadend &&\ 
 
 # Install Sundtek DVB Driver
-RUN wget http://www.sundtek.de/media/sundtek_netinst.sh && \
+wget http://www.sundtek.de/media/sundtek_netinst.sh && \
   chmod 777 sundtek_netinst.sh && \
  ./sundtek_netinst.sh -easyvdr && \
 
